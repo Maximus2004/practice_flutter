@@ -1,4 +1,4 @@
-# jhvostov_prac_1
+# practice
 
 A new Flutter project.
 

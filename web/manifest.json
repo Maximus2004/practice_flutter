@@ -1,6 +1,6 @@
 {
-    "name": "jhvostov_prac_1",
-    "short_name": "jhvostov_prac_1",
+    "name": "practice",
+    "short_name": "practice",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
