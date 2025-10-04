@@ -47,7 +47,7 @@ class _ModifyAmountCheckingScreen extends State<ModifyAmountCheckingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Сумма на вкладе"),
+        title: Text("Сумма на расчетном счете"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
