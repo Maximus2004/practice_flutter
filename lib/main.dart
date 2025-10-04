@@ -40,13 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-                'ФИО - Дмитриев Максим Александрович\nНомер группы - ИКБО-06-22\n 22И0508\n',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.red
-                )
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                  'ФИО - Дмитриев Максим Александрович\nНомер группы - ИКБО-06-22\n 22И0508\n',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.red
+                  )
+              ),
             ),
             const SizedBox(
               width: 90,
