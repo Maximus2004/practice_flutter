@@ -55,16 +55,23 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 90,
               height: 90
             ),
-            ElevatedButton(
-              onPressed: null,
-              child: const Text("Пример кнопки"),
-              style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(Colors.amber),
-                  shape: WidgetStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      )
-                  )
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: ElevatedButton(
+                onPressed: null,
+                child: const Text("Пример кнопки"),
+                style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(Colors.amber),
+                    shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        )
+                    )
+                ),
               ),
             ),
           ],
