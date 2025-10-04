@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ModifyAmountDepositScreen(
+        builder: (context) => ModifyAmountCheckingScreen(
           initialAmount: checkingAmount,
           step: step,
           onAmountChanged: (newAmount) {
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ModifyAmountCheckingScreen(
+        builder: (context) => ModifyAmountDepositScreen(
           initialAmount: depositAmount,
           step: step,
           onAmountChanged: (newAmount) {

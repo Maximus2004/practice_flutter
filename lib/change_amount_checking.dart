@@ -25,6 +25,12 @@ class _ModifyAmountCheckingScreen extends State<ModifyAmountCheckingScreen> {
     amount = widget.initialAmount;
   }
 
+  @override
+  void dispose() {
+    widget.onAmountChanged(amount);
+    super.dispose();
+  }
+
   void increase() {
     setState(() {
       amount += widget.step;
@@ -35,12 +41,6 @@ class _ModifyAmountCheckingScreen extends State<ModifyAmountCheckingScreen> {
     setState(() {
       amount -= widget.step;
     });
-  }
-
-  @override
-  void dispose() {
-    widget.onAmountChanged(amount);
-    super.dispose();
   }
 
   @override
@@ -65,13 +65,6 @@ class _ModifyAmountCheckingScreen extends State<ModifyAmountCheckingScreen> {
             ElevatedButton(
               onPressed: decrease,
               child: const Text('Уменьшить сумму'),
-            ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Готово'),
             ),
           ],
         ),
