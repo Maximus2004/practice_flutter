@@ -16,9 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Простобанк',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const MyHomePage(),
     );
   }
@@ -43,15 +41,19 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Банковское приложение'),
-      ),
+      appBar: AppBar(title: const Text('Банковское приложение')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) => Text(items[index]),
-        )
+        child: ListView.separated(
+          itemCount: items.length,
+          itemBuilder: (context, index) => Text(items[index]),
+          separatorBuilder: (context, index) => const Divider(
+            color: Colors.red,
+            thickness: 1,
+            indent: 16,
+            endIndent: 16,
+          ),
+        ),
       ),
     );
   }
@@ -60,10 +62,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final result = await Navigator.push<int>(
       context,
       MaterialPageRoute(
-        builder: (context) => BankSelectionScreen(
-          banks: banks,
-          initialIndex: selectedBankIndex,
-        ),
+        builder: (context) =>
+            BankSelectionScreen(banks: banks, initialIndex: selectedBankIndex),
       ),
     );
 
