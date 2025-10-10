@@ -33,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<String> banks = ['МКБ', 'Сбер', 'Т-банк', 'Альфа'];
+  final items = List.generate(100, (index) => 'Item ${index + 1}');
   int selectedBankIndex = 0;
   int checkingAmount = 0;
   int depositAmount = 0;
@@ -47,36 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text("Дмитриев Максим Александрович ИКБО-06-22"),
-              Text("Дмитриев Максим Александрович ИКБО-06-22"),
-              Text("Дмитриев Максим Александрович ИКБО-06-22"),
-              Text("Дмитриев Максим Александрович ИКБО-06-22"),
-              Text("Дмитриев Максим Александрович ИКБО-06-22"),
-              ElevatedButton(
-                onPressed: _navigateToBankSelection,
-                child: const Text('Выбрать банк'),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _navigateToModifyChecking,
-                child: const Text('Изменить сумму на расчетном счёту'),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _navigateToModifyDeposit,
-                child: const Text('Изменить сумму на вкладе'),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: _navigateToProfile,
-                child: const Text('Личный кабинет'),
-              ),
-            ],
-          ),
+        child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) => Text(items[index]),
         )
       ),
     );
