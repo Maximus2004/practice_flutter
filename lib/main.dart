@@ -44,15 +44,29 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(title: const Text('Банковское приложение')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.separated(
-          itemCount: items.length,
-          itemBuilder: (context, index) => Text(items[index]),
-          separatorBuilder: (context, index) => const Divider(
-            color: Colors.red,
-            thickness: 1,
-            indent: 16,
-            endIndent: 16,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ElevatedButton(
+              onPressed: _navigateToBankSelection,
+              child: const Text('Выбрать банк'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: _navigateToModifyChecking,
+              child: const Text('Изменить сумму на расчетном счёту'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: _navigateToModifyDeposit,
+              child: const Text('Изменить сумму на вкладе'),
+            ),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: _navigateToProfile,
+              child: const Text('Личный кабинет'),
+            ),
+          ],
         ),
       ),
     );
