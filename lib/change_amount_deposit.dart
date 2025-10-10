@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'change_amount_checking.dart';
 
 class ModifyAmountDepositScreen extends StatefulWidget {
   final int initialAmount;
@@ -71,8 +72,4 @@ class _ModifyAmountDepositScreenState extends State<ModifyAmountDepositScreen> {
       ),
     );
   }
-}
-
-String formatRub(int amount) {
-  return '$amount р.';
 }
