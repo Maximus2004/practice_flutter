@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 
 class ModifyAmountDepositScreen extends StatefulWidget {
   final int initialAmount;
-  final int step; // оставлено для совместимости
   final ValueChanged<int> onAmountChanged;
 
   const ModifyAmountDepositScreen({
     super.key,
     required this.initialAmount,
-    required this.step,
     required this.onAmountChanged,
   });
 
@@ -43,18 +41,9 @@ class _ModifyAmountDepositScreen extends State<ModifyAmountDepositScreen> {
 
   void _opendepositAccount() {
     final text = _controller.text.trim();
-    if (text.isEmpty) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Введите сумму')));
-      return;
-    }
+    final value = int.tryParse(text);
 
-    final value = int.tryParse(text.replaceAll(' ', ''));
-    if (value == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Неверный формат суммы')));
-      return;
-    }
+    if (value == null) return;
 
     setState(() {
       depositAccounts.add(value);
@@ -63,7 +52,6 @@ class _ModifyAmountDepositScreen extends State<ModifyAmountDepositScreen> {
   }
 
   void _removeAccountAt(int index) {
-    if (index < 0 || index >= depositAccounts.length) return;
     setState(() {
       depositAccounts.removeAt(index);
     });
@@ -72,19 +60,17 @@ class _ModifyAmountDepositScreen extends State<ModifyAmountDepositScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Сумма на вкладе"),
-      ),
+      appBar: AppBar(title: const Text("Сумма на вкладе")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          // Внешняя колонка располагает header, input + button и область для списка
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Общая сумма: ${formatRub(_totalAmount())}',
-                style: const TextStyle(fontSize: 20)),
+            Text(
+              'Общая сумма: ${formatRub(_totalAmount())}',
+              style: const TextStyle(fontSize: 20),
+            ),
             const SizedBox(height: 24),
-
             Row(
               children: [
                 Expanded(
@@ -102,41 +88,25 @@ class _ModifyAmountDepositScreen extends State<ModifyAmountDepositScreen> {
                 const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: _opendepositAccount,
-                  child: const Text('Открыть\nвклад',
-                      textAlign: TextAlign.center),
+                  child: const Text(
+                    'Открыть\nвклад',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             ),
-
             const SizedBox(height: 16),
-
-            // Область для списка — используем Expanded + SingleChildScrollView + Column
             Expanded(
-              child: depositAccounts.isEmpty
-                  ? const Center(
-                  child:
-                  Text('Пока нет открытых вкладов. Добавьте один.'))
-                  : SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Column(
-                  children: List<Widget>.generate(
-                    depositAccounts.length * 2 - 1,
-                        (i) {
-                      // чётные индексы — элементы, нечётные — разделители
-                      if (i.isOdd) {
-                        return const Divider(height: 1);
-                      }
-                      final index = i ~/ 2;
-                      final value = depositAccounts[index];
-                      return ListTile(
-                        title: Text(formatRub(value)),
-                        subtitle:
-                        const Text('Нажмите, чтобы удалить вклад'),
-                        onTap: () => _removeAccountAt(index),
-                        // визуально выделяем выбранный элемент (опционально)
-                        // selected: false,
-                      );
-                    },
-                  ),
+                  children: List<Widget>.generate(depositAccounts.length, (i) {
+                    final value = depositAccounts[i];
+                    return ListTile(
+                      title: Text(formatRub(value)),
+                      subtitle: const Text('Нажмите, чтобы удалить вклад'),
+                      onTap: () => _removeAccountAt(i),
+                    );
+                  }),
                 ),
               ),
             ),

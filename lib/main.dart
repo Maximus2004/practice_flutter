@@ -36,8 +36,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int checkingAmount = 0;
   int depositAmount = 0;
 
-  static const int step = 10000;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(
         builder: (context) => ModifyAmountCheckingScreen(
           initialAmount: checkingAmount,
-          step: step,
           onAmountChanged: (newAmount) {
             setState(() {
               checkingAmount = newAmount;
@@ -111,7 +108,6 @@ class _MyHomePageState extends State<MyHomePage> {
       MaterialPageRoute(
         builder: (context) => ModifyAmountDepositScreen(
           initialAmount: depositAmount,
-          step: step,
           onAmountChanged: (newAmount) {
             setState(() {
               depositAmount = newAmount;
