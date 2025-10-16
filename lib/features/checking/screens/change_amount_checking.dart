@@ -103,7 +103,6 @@ class _ModifyAmountCheckingScreen extends State<AmountCheckingScreen> {
               percentLabel: 'Годовой %',
               buttonText: 'Добавить',
               onAdd: _addAccount,
-              computePreview: (a, p) => a * (p / 100.0) / 365.0,
             ),
             const SizedBox(height: 12),
             const Text(

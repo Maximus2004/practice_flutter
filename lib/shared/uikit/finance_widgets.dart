@@ -24,7 +24,6 @@ class AmountPercentInput extends StatefulWidget {
   final String percentLabel;
   final String buttonText;
   final OnAddAccount onAdd;
-  final double? Function(double amount, double percent)? computePreview;
 
   const AmountPercentInput({
     super.key,
@@ -32,7 +31,6 @@ class AmountPercentInput extends StatefulWidget {
     required this.percentLabel,
     required this.buttonText,
     required this.onAdd,
-    this.computePreview,
   });
 
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:practice/profile_info.dart';
+import 'package:practice/features/profile/screens/profile_info.dart';
 
-import 'bank_selection.dart';
-import 'change_amount_checking.dart';
-import 'change_amount_deposit.dart';
+import 'features/bank/screens/bank_selection.dart';
+import 'features/checking/screens/change_amount_checking.dart';
+import 'features/deposit/state/deposit_container.dart';
 
 void main() {
   runApp(const MyApp());
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ModifyAmountCheckingScreen(
+        builder: (context) => AmountCheckingScreen(
           initialAmount: checkingAmount,
           onAmountChanged: (newAmount) {
             setState(() {
@@ -106,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ModifyAmountDepositScreen(
+        builder: (context) => DepositContainer(
           initialAmount: depositAmount,
           onAmountChanged: (newAmount) {
             setState(() {
