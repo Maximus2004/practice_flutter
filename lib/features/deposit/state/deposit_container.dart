@@ -1,6 +1,5 @@
 // deposit_container.dart
 import 'package:flutter/material.dart';
-import '../../../shared/uikit/finance_widgets.dart';
 import '../model/deposit_account.dart';
 import '../screens/deposit_list_screen.dart';
 import '../screens/deposit_add_screen.dart';

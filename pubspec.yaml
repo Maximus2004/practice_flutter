@@ -9,6 +9,7 @@ environment:
   sdk: ^3.9.2
 
 dependencies:
+  cached_network_image: ^3.3.1
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
