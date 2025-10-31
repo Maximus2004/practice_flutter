@@ -51,8 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
               imageUrl: imageUrl,
               height: 300,
               width: 300,
-              imageBuilder: (context, imageProviver) => CircleAvatar(
-                backgroundImage: imageProviver,
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                backgroundImage: imageProvider,
                 radius: 100,
               ),
               progressIndicatorBuilder: (context, url, progress) =>
