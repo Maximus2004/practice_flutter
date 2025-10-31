@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BankSelectionScreen extends StatefulWidget {
@@ -67,14 +68,32 @@ class _BankSelectionScreenState extends State<BankSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final currentBankText = banksList[currentIndex];
+    final String imageUrl = "https://cdn-icons-png.freepik.com/512/2665/2665131.png";
 
     return Scaffold(
       appBar: AppBar(title: const Text('Выбор банка')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            CachedNetworkImage(
+              imageUrl: imageUrl,
+              height: 300,
+              width: 300,
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                backgroundImage: imageProvider,
+                radius: 100,
+              ),
+              progressIndicatorBuilder: (context, url, progress) =>
+              const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 60
+              ),
+            ),
+            const SizedBox(height: 24, width: double.infinity),
             Text(
               'Текущий банк: $currentBankText',
               style: const TextStyle(fontSize: 20),
