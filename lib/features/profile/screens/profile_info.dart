@@ -41,6 +41,7 @@ class ProfileScreen extends StatelessWidget {
                   size: 60
               ),
             ),
+            const SizedBox(height: 12, width: double.infinity),
             Text('Банк: $bankName', style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 12),
             Text('Сумма на расчетном счёте: ${formatRub(checkingAmount)}'),

@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const String imageUrl = 'https://png.pngtree.com/png-vector/20210301/ourmid/pngtree-bank-icon-png-image_2997218.jpg';
+    const String imageUrl = 'https://static.vecteezy.com/system/resources/previews/021/944/628/original/bank-logo-or-icon-design-on-white-background-illustration-vector.jpg';
     return Scaffold(
       appBar: AppBar(title: const Text('Банковское приложение')),
       body: Padding(
@@ -63,6 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 size: 60
               ),
             ),
+            const SizedBox(height: 12, width: double.infinity),
             ElevatedButton(
               onPressed: _navigateToBankSelection,
               child: const Text('Выбрать банк'),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/uikit/finance_widgets.dart';
 import '../model/checking_account.dart';
@@ -62,6 +63,7 @@ class _ModifyAmountCheckingScreen extends State<AmountCheckingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const String imageUrl = "https://cdn-icons-png.flaticon.com/512/7549/7549118.png";
     final explanation =
         'Расчётный счёт предполагает ежедневный доход, поэтому ежедневный доход '
         'рассчитывается автоматически и отображается отдельно. Сумму и годовой '
@@ -84,8 +86,25 @@ class _ModifyAmountCheckingScreen extends State<AmountCheckingScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            CachedNetworkImage(
+              imageUrl: imageUrl,
+              height: 300,
+              width: 300,
+              imageBuilder: (context, imageProvider) => CircleAvatar(
+                backgroundImage: imageProvider,
+                radius: 100,
+              ),
+              progressIndicatorBuilder: (context, url, progress) =>
+              const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                  size: 60
+              ),
+            ),
+            const SizedBox(height: 16),
             ExplanationText(explanation),
             const SizedBox(height: 16),
             Text(
