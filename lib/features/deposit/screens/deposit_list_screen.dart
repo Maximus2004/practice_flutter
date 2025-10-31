@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/uikit/finance_widgets.dart';
 import '../model/deposit_account.dart';
@@ -22,6 +23,7 @@ class DepositListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String imageUrl = "https://cdn-icons-png.flaticon.com/512/125/125513.png";
     final items = List<AccountDisplay>.generate(
       deposits.length,
           (i) {
@@ -36,8 +38,25 @@ class DepositListScreen extends StatelessWidget {
     );
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        CachedNetworkImage(
+          imageUrl: imageUrl,
+          height: 300,
+          width: 300,
+          imageBuilder: (context, imageProvider) => CircleAvatar(
+            backgroundImage: imageProvider,
+            radius: 100,
+          ),
+          progressIndicatorBuilder: (context, url, progress) =>
+          const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 60
+          ),
+        ),
+        const SizedBox(height: 16, width: double.infinity),
         ExplanationText(explanation),
         const SizedBox(height: 16),
         Text(
