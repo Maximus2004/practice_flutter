@@ -5,12 +5,14 @@ class ProfileScreen extends StatelessWidget {
   final String bankName;
   final int checkingAmount;
   final int depositAmount;
+  final VoidCallback? onSelectBankTap;
 
   const ProfileScreen({
     super.key,
     required this.bankName,
     required this.checkingAmount,
     required this.depositAmount,
+    required this.onSelectBankTap
   });
 
   @override
@@ -47,6 +49,11 @@ class ProfileScreen extends StatelessWidget {
             Text('Сумма на расчетном счёте: ${formatRub(checkingAmount)}'),
             const SizedBox(height: 8),
             Text('Сумма на вкладе: ${formatRub(depositAmount)}'),
+            const SizedBox(height: 12),
+            ElevatedButton(
+              onPressed: onSelectBankTap,
+              child: const Text("Выбрать банк"),
+            ),
           ],
         ),
       ),
