@@ -1,14 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BankSelectionScreen extends StatefulWidget {
   final List<String> banks;
   final int initialIndex;
+  final ValueChanged<int> onSelect;
 
   const BankSelectionScreen({
     super.key,
     required this.banks,
     required this.initialIndex,
+    required this.onSelect,
   });
 
   @override
@@ -49,7 +52,7 @@ class _BankSelectionScreenState extends State<BankSelectionScreen> {
         currentIndex = 0;
       } else {
         if (index < currentIndex) {
-          currentIndex = currentIndex - 1;
+          currentIndex--;
         } else if (index == currentIndex) {
           if (currentIndex >= banksList.length) {
             currentIndex = banksList.length - 1;
@@ -68,7 +71,7 @@ class _BankSelectionScreenState extends State<BankSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final currentBankText = banksList[currentIndex];
-    final String imageUrl = "https://cdn-icons-png.freepik.com/512/2665/2665131.png";
+    const imageUrl = "https://cdn-icons-png.freepik.com/512/2665/2665131.png";
 
     return Scaffold(
       appBar: AppBar(title: const Text('Выбор банка')),
@@ -106,8 +109,8 @@ class _BankSelectionScreenState extends State<BankSelectionScreen> {
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: () {
-                final result = currentIndex;
-                Navigator.pop(context, result);
+                widget.onSelect(currentIndex);
+                context.pop(currentIndex);
               },
               child: const Text('Подтвердить выбор'),
             ),

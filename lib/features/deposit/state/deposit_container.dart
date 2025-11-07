@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../model/deposit_account.dart';
 import '../screens/deposit_list_screen.dart';
-import '../screens/deposit_add_screen.dart';
 
 class DepositContainer extends StatefulWidget {
   final int initialAmount;
@@ -39,7 +39,8 @@ class _DepositContainerState extends State<DepositContainer> {
     super.dispose();
   }
 
-  double _totalAmount() => _depositAccounts.fold(0.0, (s, d) => s + d.amount);
+  double _totalAmount() =>
+      _depositAccounts.fold(0.0, (s, d) => s + d.amount);
 
   int _totalAmountRounded() => _totalAmount().round();
 
@@ -54,15 +55,8 @@ class _DepositContainerState extends State<DepositContainer> {
     });
   }
 
-  void _navigateToAddDeposit() async {
-    final result = await Navigator.push<Map<String, double>>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => DepositAddScreen(
-          explanation: _explanation,
-        ),
-      ),
-    );
+  Future<void> _navigateToAddDeposit() async {
+    final result = await context.push<Map<String, double>>('/deposit/form');
 
     if (result != null) {
       final amount = result['amount']!;

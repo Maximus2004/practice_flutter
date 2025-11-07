@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../shared/uikit/finance_widgets.dart';
 
 class DepositAddScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class DepositAddScreen extends StatelessWidget {
               percentLabel: 'Годовой %',
               buttonText: 'Применить',
               onAdd: (amount, percent) {
-                Navigator.pop(context, {
+                context.pop({
                   'amount': amount,
                   'percent': percent,
                 });
