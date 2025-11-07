@@ -1,10 +1,7 @@
-// deposit_container.dart
 import 'package:flutter/material.dart';
 import '../model/deposit_account.dart';
 import '../screens/deposit_list_screen.dart';
 import '../screens/deposit_add_screen.dart';
-
-enum DepositScreenState { list, adding }
 
 class DepositContainer extends StatefulWidget {
   final int initialAmount;
@@ -22,7 +19,6 @@ class DepositContainer extends StatefulWidget {
 
 class _DepositContainerState extends State<DepositContainer> {
   final List<DepositAccount> _depositAccounts = [];
-  DepositScreenState _currentState = DepositScreenState.list;
 
   @override
   void initState() {
@@ -50,21 +46,6 @@ class _DepositContainerState extends State<DepositContainer> {
   double _totalAnnualIncome() =>
       _depositAccounts.fold(0.0, (s, d) => s + d.annualIncome);
 
-  void _startAdding() {
-    setState(() {
-      _currentState = DepositScreenState.adding;
-    });
-  }
-
-  void _applyAdd(double amount, double percent) {
-    setState(() {
-      _depositAccounts.add(
-        DepositAccount(amount: amount, annualPercent: percent),
-      );
-      _currentState = DepositScreenState.list;
-    });
-  }
-
   void _removeAt(int index) {
     setState(() {
       if (index >= 0 && index < _depositAccounts.length) {
@@ -73,27 +54,46 @@ class _DepositContainerState extends State<DepositContainer> {
     });
   }
 
+  void _navigateToAddDeposit() async {
+    final result = await Navigator.push<Map<String, double>>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => DepositAddScreen(
+          explanation: _explanation,
+        ),
+      ),
+    );
+
+    if (result != null) {
+      final amount = result['amount']!;
+      final percent = result['percent']!;
+      setState(() {
+        _depositAccounts.add(
+          DepositAccount(amount: amount, annualPercent: percent),
+        );
+      });
+    }
+  }
+
+  String get _explanation =>
+      'Выплаты по вкладу происходят раз в год, поэтому годовой доход '
+          'рассчитывается автоматически и отображается отдельно. Сумму вклада и '
+          'годовой процент вводите вручную — годовой доход вычисляет приложение.';
+
   @override
   Widget build(BuildContext context) {
-    final explanation =
-        'Выплаты по вкладу происходят раз в год, поэтому годовой доход '
-        'рассчитывается автоматически и отображается отдельно. Сумму вклада и '
-        'годовой процент вводите вручную — годовой доход вычисляет приложение.';
-
     return Scaffold(
       appBar: AppBar(title: const Text('Вклады')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: _currentState == DepositScreenState.list
-            ? DepositListScreen(
-                explanation: explanation,
-                deposits: List.unmodifiable(_depositAccounts),
-                totalAmount: _totalAmount(),
-                totalAnnualIncome: _totalAnnualIncome(),
-                onAddTap: _startAdding,
-                onRemoveAt: _removeAt,
-              )
-            : DepositAddScreen(explanation: explanation, onApply: _applyAdd),
+        child: DepositListScreen(
+          explanation: _explanation,
+          deposits: List.unmodifiable(_depositAccounts),
+          totalAmount: _totalAmount(),
+          totalAnnualIncome: _totalAnnualIncome(),
+          onAddTap: _navigateToAddDeposit,
+          onRemoveAt: _removeAt,
+        ),
       ),
     );
   }

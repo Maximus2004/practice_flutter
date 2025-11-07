@@ -3,31 +3,40 @@ import '../../../shared/uikit/finance_widgets.dart';
 
 class DepositAddScreen extends StatelessWidget {
   final String explanation;
-  final void Function(double amount, double percent) onApply;
 
   const DepositAddScreen({
     super.key,
     required this.explanation,
-    required this.onApply,
   });
 
   @override
   Widget build(BuildContext context) {
-    // показываем только форму добавления (AmountPercentInput)
-    // кнопка "Применить" передаёт значения в onApply
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        ExplanationText('Добавление вклада. $explanation'),
-        const SizedBox(height: 16),
-        AmountPercentInput(
-          amountLabel: 'Сумма вклада (₽)',
-          percentLabel: 'Годовой %',
-          buttonText: 'Применить',
-          onAdd: onApply,
+    return Scaffold(
+      appBar: AppBar(title: const Text("Добавление вклада")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            ExplanationText('Добавление вклада. $explanation'),
+            const SizedBox(height: 16),
+
+            AmountPercentInput(
+              amountLabel: 'Сумма вклада (₽)',
+              percentLabel: 'Годовой %',
+              buttonText: 'Применить',
+              onAdd: (amount, percent) {
+                Navigator.pop(context, {
+                  'amount': amount,
+                  'percent': percent,
+                });
+              },
+            ),
+
+            const SizedBox(height: 12),
+          ],
         ),
-        const SizedBox(height: 12),
-      ],
+      ),
     );
   }
 }
