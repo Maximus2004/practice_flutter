@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:practice/shared/app_router.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    AppStateContainer(
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
