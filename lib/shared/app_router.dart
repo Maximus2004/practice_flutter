@@ -1,51 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:practice/shared/service_locator.dart';
 import '../features/checking/screens/change_amount_checking.dart';
 import '../features/deposit/screens/deposit_add_screen.dart';
 import '../features/deposit/state/deposit_container.dart';
 import '../features/profile/screens/profile_info.dart';
 import '../features/bank/screens/bank_selection.dart';
-
-class AppStateContainer extends StatefulWidget {
-  final Widget child;
-  const AppStateContainer({super.key, required this.child});
-
-  @override
-  State<AppStateContainer> createState() => _AppStateContainerState();
-
-  static _AppStateContainerState of(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<_InheritedAppState>()!
-        .state;
-  }
-}
-
-class _AppStateContainerState extends State<AppStateContainer> {
-  int checkingAmount = 0;
-  int depositAmount = 0;
-  int selectedBankIndex = 0;
-  List<String> banks = ['МКБ', 'Сбер', 'Т-банк', 'Альфа'];
-
-  void setChecking(int v) => setState(() => checkingAmount = v);
-  void setDeposit(int v) => setState(() => depositAmount = v);
-  void setBank(int i) => setState(() => selectedBankIndex = i);
-
-  @override
-  Widget build(BuildContext context) {
-    return _InheritedAppState(
-      state: this,
-      child: widget.child,
-    );
-  }
-}
-
-class _InheritedAppState extends InheritedWidget {
-  final _AppStateContainerState state;
-  const _InheritedAppState({required super.child, required this.state});
-
-  @override
-  bool updateShouldNotify(_) => true;
-}
 
 final router = GoRouter(
   initialLocation: '/',
@@ -56,17 +16,28 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: 'deposit/form',
-          builder: (context, state) =>
+          builder: (_, __) =>
           const DepositAddScreen(explanation: 'Добавить вклад'),
         ),
+
         GoRoute(
           path: 'profile/bank',
           builder: (context, state) {
-            final app = AppStateContainer.of(context);
+            final app = locator.isRegistered<AppState>() ? locator<AppState>() : null;
+
+            if (app == null) {
+              return const Scaffold(
+                body: Center(child: Text('AppState не инициализирован')),
+              );
+            }
+
             return BankSelectionScreen(
               banks: app.banks,
               initialIndex: app.selectedBankIndex,
-              onSelect: app.setBank,
+              onSelect: (i) {
+                app.setBank(i);
+                context.pop();
+              },
             );
           },
         ),
@@ -87,17 +58,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final app = AppStateContainer.of(context);
+    final app = locator.get<AppState>();
 
     final pages = [
       AmountCheckingScreen(
         initialAmount: app.checkingAmount,
-        onAmountChanged: app.setChecking,
+        onAmountChanged: (v) {
+          setState(() {
+            app.setChecking(v);
+          });
+        },
       ),
 
       DepositContainer(
         initialAmount: app.depositAmount,
-        onAmountChanged: app.setDeposit,
+        onAmountChanged: (v) {
+          setState(() {
+            app.setDeposit(v);
+          });
+        },
       ),
 
       ProfileScreen(
@@ -115,9 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: pageIndex,
-        onTap: (i) {
-          setState(() => pageIndex = i);
-        },
+        onTap: (i) => setState(() => pageIndex = i),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),

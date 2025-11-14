@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:practice/shared/app_router.dart';
+import 'package:practice/shared/service_locator.dart';
 
 void main() {
-  runApp(
-    AppStateContainer(
-      child: const MyApp(),
-    ),
-  );
+  setupLocator();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
