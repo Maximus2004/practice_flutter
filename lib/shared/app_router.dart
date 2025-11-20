@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice/shared/service_locator.dart';
+import '../features/auth/screens/auth_screen.dart';
 import '../features/checking/screens/change_amount_checking.dart';
 import '../features/deposit/screens/deposit_add_screen.dart';
 import '../features/deposit/state/deposit_container.dart';
@@ -14,6 +15,11 @@ final router = GoRouter(
       path: '/',
       builder: (_, __) => const HomeScreen(),
       routes: [
+        GoRoute(
+          path: 'auth',
+          builder: (_, __) => const LoginScreen(),
+        ),
+
         GoRoute(
           path: 'deposit/form',
           builder: (_, __) =>

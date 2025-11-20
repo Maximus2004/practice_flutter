@@ -1,5 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../auth/auth_cubit.dart';
 
 class ProfileScreen extends StatelessWidget {
   final String bankName;
@@ -53,6 +57,29 @@ class ProfileScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: onSelectBankTap,
               child: const Text("Выбрать банк"),
+            ),
+            const SizedBox(height: 12),
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                if (!state.isAuthorized) {
+                  return ElevatedButton(
+                    onPressed: () => context.push('/auth'),
+                    child: const Text('Войти'),
+                  );
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Вы вошли как: ${state.login}"),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () => context.read<AuthCubit>().logout(),
+                      child: const Text("Выйти"),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),

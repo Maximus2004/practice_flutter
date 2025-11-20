@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice/shared/app_router.dart';
 import 'package:practice/shared/service_locator.dart';
+import 'bloc_observer.dart';
+import 'features/auth/auth_cubit.dart';
 
 void main() {
+  Bloc.observer = AppBlocObserver();
   setupLocator();
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => AuthCubit(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
