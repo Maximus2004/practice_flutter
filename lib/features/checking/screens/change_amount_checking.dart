@@ -53,13 +53,18 @@ class _ModifyAmountCheckingScreen extends State<AmountCheckingScreen> {
         annualPercent: percent,
       ));
     });
+
+    widget.onAmountChanged(_totalAmountRounded());
   }
 
   void _removeAt(int index) {
     setState(() {
       _checkingAccounts.removeAt(index);
     });
+
+    widget.onAmountChanged(_totalAmountRounded());
   }
+
 
   @override
   Widget build(BuildContext context) {

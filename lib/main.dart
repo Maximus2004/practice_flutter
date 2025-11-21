@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:practice/shared/app_cubit.dart';
 import 'package:practice/shared/app_router.dart';
-import 'package:practice/shared/service_locator.dart';
-import 'bloc_observer.dart';
 import 'features/auth/auth_cubit.dart';
 
 void main() {
-  Bloc.observer = AppBlocObserver();
-  setupLocator();
   runApp(
-    BlocProvider(
-      create: (context) => AuthCubit(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => BillCubit()),
+        BlocProvider(create: (_) => AuthCubit()),
+      ],
       child: const MyApp(),
     ),
   );
