@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:practice/shared/app_cubit.dart';
 import 'package:practice/shared/app_router.dart';
 import 'features/auth/auth_cubit.dart';
+import 'features/transactions/state/transactions_cubit.dart';
+import 'features/notifications/state/notifications_cubit.dart';
 
 void main() {
   runApp(
@@ -10,6 +12,8 @@ void main() {
       providers: [
         BlocProvider(create: (_) => BillCubit()),
         BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => TransactionsCubit()),
+        BlocProvider(create: (_) => NotificationsCubit()),
       ],
       child: const MyApp(),
     ),

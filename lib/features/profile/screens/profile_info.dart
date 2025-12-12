@@ -63,7 +63,7 @@ class ProfileScreen extends StatelessWidget {
               builder: (context, state) {
                 if (!state.isAuthorized) {
                   return ElevatedButton(
-                    onPressed: () => context.push('/auth'),
+                    onPressed: () => context.push('/profile/login'),
                     child: const Text('Войти'),
                   );
                 }
